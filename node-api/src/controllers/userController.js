@@ -3,8 +3,8 @@ const db = require("../config/db");
 const getUsers = async (req, res) => {
 
     const { Id } = req.body;
-    if (!Id) {
-        return res.status(400).json({ error: "User not found.." });
+    if (Id === null || Id === undefined) {
+        return res.status(400).json({ error: "User id is required" });
     }
 
     try {
@@ -18,7 +18,7 @@ const getUsers = async (req, res) => {
             return res.status(404).json({ error: "No users found" });
         }
 
-        res.json(users); // ✅ Return extracted user liste
+        res.json(users); // Return extracted user liste
     } catch (err) {
         console.error("Database Query Error:", err);
         res.status(500).json({ error: err.message });

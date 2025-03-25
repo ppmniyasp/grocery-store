@@ -1,16 +1,20 @@
 const db = require("../config/db");
 
 const getCategory = async (req, res) => {
-    const categoryId = req.params.id ? parseInt(req.params.id) : 0;
+
+    const { Id } = req.body;
+    if (Id === null || Id === undefined) {
+        return res.status(400).json({ error: "Category id is required" });
+    }
 
     try {
 
         let result;
 
-        if (categoryId === 0){
+        if (Id === 0){
             [result] = await db.execute("SELECT * FROM categorymst;");
         }else{
-            [result] = await db.execute("SELECT * FROM categorymst WHERE id = ?;",[categoryId]);
+            [result] = await db.execute("SELECT * FROM categorymst WHERE id = ?;",[Id]);
         }
 
         console.log("Raw MySQL Output:", result); // DEBUGGING STEP
