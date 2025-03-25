@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const { db } = require("../config/db");
 
 const loginUser = async (req, res) => {
     const { name, password } = req.body;
@@ -9,8 +9,6 @@ const loginUser = async (req, res) => {
     try {
         // Run the stored procedure
         const [result] = await db.execute("CALL loginproc(?, ?)", [name, password]);
-
-        console.log("Raw MySQL Output:", result); // DEBUGGING STEP
 
         // Verify result format
         if (!result || result.length === 0) {

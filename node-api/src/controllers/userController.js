@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const { db } = require("../config/db");
 
 const getUsers = async (req, res) => {
 
@@ -9,8 +9,6 @@ const getUsers = async (req, res) => {
 
     try {
         const [result] = await db.execute("CALL GetUsersJSON(?)", [Id]);
-
-        console.log("Raw MySQL Output:", result); // DEBUGGING STEP
 
         const users = result[0];
 

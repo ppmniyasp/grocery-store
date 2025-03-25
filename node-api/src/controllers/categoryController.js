@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const { db } = require("../config/db");
 
 const getCategory = async (req, res) => {
 
@@ -16,8 +16,6 @@ const getCategory = async (req, res) => {
         }else{
             [result] = await db.execute("SELECT * FROM categorymst WHERE id = ?;",[Id]);
         }
-
-        console.log("Raw MySQL Output:", result); // DEBUGGING STEP
 
         const category = result;
 
