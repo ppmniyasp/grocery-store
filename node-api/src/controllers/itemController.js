@@ -1,5 +1,21 @@
 const item = require("../models/item");
 
+const createItem = async (req, res) => {
+    const itemToInsert = req.body;
+
+    if (!itemToInsert || Object.keys(itemToInsert).length === 0){
+        return res.status(400).json({ error: "item details is required"})
+    }
+
+    try{
+        const createdItem = await item.create(itemToInsert);
+        res.json(createdItem);
+    }catch (err){
+        console.error("Error creating item : ",err)
+        res.status(500).json({ error : err.message });
+    }
+};
+
 const getItem = async (req, res) => {
 
     const Id = Number(req.body.id);
@@ -26,6 +42,8 @@ const getItem = async (req, res) => {
         res.status(500).json({ error : err.message });
     }
 };
+
+module.exports = { getItem, createItem };
 
 
 
